@@ -1,0 +1,2 @@
+username: diplom2026
+password: Diplom2026

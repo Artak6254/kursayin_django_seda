@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'quiz/css/quizes.css' %}">
+<link rel="stylesheet" href="{% static 'quiz/css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- JSON Data -->
+    {{ quizData|json_script:"quiz-data" }}
+
+    <main class="wrapper quize">
+        <div class="about_container">
+            <img class="one" src="{% static 'quiz/images/Scratchlogo.png' %}" alt="s">
+        </div>
+
+        <section id="lessons" class="quizes-container">
+            <h1>{{ quiz.heading }}</h1>
+
+            <div id="level-buttons"></div>
+            <div id="score" class="message"></div>
+            <div id="quiz-container"></div>
+        </section>
+
+        <section id="about">
+            <div class="about_container">
+                <div class="content_block">
+                    <img src="{% static 'quiz/images/image.png' %}" alt="s">
+                    <div class="content">
+                       <h2>{{ quiz.title }}</h2>
+                       <p>{{ quiz.descrption }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const quizData = JSON.parse(document.getElementById("quiz-data").textContent);
+
+const levelContainer = document.getElementById('level-buttons');
+const scoreEl = document.getElementById('score');
+
+Object.keys(quizData).forEach(levelName => {
+    let btn = document.createElement('button');
+    btn.textContent = levelName.replace("level", "Level ");
+    btn.className = 'level-btn';
+    btn.onclick = () => loadQuiz(levelName);
+    levelContainer.appendChild(btn);
+});
+
+function loadQuiz(level) {
+    const container = document.getElementById('quiz-container');
+    container.innerHTML = "";
+    scoreEl.textContent = "Ընդհանուր ճիշտ պատասխանների քանակը՝";
+
+    const questions = quizData[level];
+
+    if (!questions) {
+        container.innerHTML = "<p>Այս մակարդակը առայժմ չկա</p>";
+        return;
+    }
+
+    let correctCount = 0;
+
+    questions.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'quiz-card';
+        card.innerHTML = `<h3>${item.q}</h3>`;
+
+        item.options.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.textContent = opt;
+            btn.className = 'option';
+            btn.onclick = () => {
+                if (i === item.answer) {
+                    btn.classList.add('correct');
+                    correctCount++;
+                } else {
+                    btn.classList.add('wrong');
+                }
+                // Disable all options after selection
+                Array.from(card.querySelectorAll('button')).forEach(b => b.disabled = true);
+                scoreEl.textContent = `Ընդհանուր ճիշտ պատասխանների քանակը՝ ${correctCount} / ${questions.length}`;
+            };
+            card.appendChild(btn);
+        });
+
+        container.appendChild(card);
+    });
+}
+</script>
+{% endblock %}

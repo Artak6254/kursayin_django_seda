@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'quiz/css/fact.css' %}">
+{% endblock %}
+
+
+{% block content %}
+{{ allScratchFacts|json_script:"all-facts-data" }}
+    <main>
+        <section id="facts" class="facts-container">
+            <h2 class="fact-title">{{fact.title}}</h2>
+
+            <div id="facts-container-grid" class="fun-facts-grid">
+            </div>
+
+        </section>
+        <section id="about">
+            <div class="about_container">
+                <div class="content_block">
+                    <img src="{% static 'quiz/images/image.png' %}" alt="s">
+                    <div class="content">
+                       <h2>{{fact.heading}}</h2>
+                        <p>{{fact.description}}</p>
+                    </div>
+                </div>
+                <img class="one" src="{% static "quiz/images/Scratchlogo.png" %}" alt="s">
+            </div>
+        </section>
+    </main>
+{% endblock  %}
+{% block scripts %}
+    <script>
+      const allScratchFacts = JSON.parse(document.getElementById("all-facts-data").textContent);
+
+
+        function getRandomFacts(arr, num) {
+            const shuffled = [...arr].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, num);
+        }
+
+        function displayRandomFacts() {
+            const gridContainer = document.getElementById('facts-container-grid');
+            const selectedFacts = getRandomFacts(allScratchFacts, 6); 
+
+            let htmlContent = '';
+
+            selectedFacts.forEach(fact => {
+                const titleWithEmojiSpan = fact.title.replace(/([\uD800-\uDBFF][\uDC00-\uDFFF]|\s)*/, (match, p1) => `<span style="font-size: 2.5em; vertical-align: middle; margin-right: 5px; line-height: 1;">${match.trim()}</span> `);
+
+                htmlContent += `
+                    <div class="fact-card">
+                        <h4>${fact.title}</h4>
+                        <p>${fact.text}</p>
+                    </div>
+                `;
+            });
+
+            const regex = /^(\S+)\s/; 
+
+            let newHtmlContent = '';
+            selectedFacts.forEach(fact => {
+                const emojiMatch = fact.title.match(regex);
+                let formattedTitle;
+
+                if (emojiMatch) {
+                    const emoji = emojiMatch[1]; 
+                    const restOfTitle = fact.title.substring(emojiMatch[0].length);
+                    formattedTitle = `<span style="font-size: 2.5em; vertical-align: middle; margin-right: 5px; line-height: 1;">${emoji}</span>${restOfTitle}`;
+                } else {
+                    formattedTitle = fact.title;
+                }
+
+                newHtmlContent += `
+                    <div class="fact-card">
+                        <h4>${formattedTitle}</h4>
+                        <p>${fact.text}</p>
+                    </div>
+                `;
+            });
+
+            gridContainer.innerHTML = newHtmlContent;
+        }
+        window.onload = displayRandomFacts;
+    </script>
+{% endblock  %}
+       

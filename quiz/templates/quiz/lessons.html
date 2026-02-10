@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'quiz/css/lessons.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+{{ lessonContent|json_script:"lesson-data" }}
+  <main>
+  
+      <div  class="about_container">
+
+        <div class="content_block">
+          <img src="{% static 'quiz/images/image.png' %}" alt="s">
+          <div class="content">
+            <h2>{{less.heading}}</h2>
+            <p>{{less.text}}</p>
+
+          </div>
+        </div>
+      </div>
+  
+    <section id="lessons" class="lessons-container">
+      <h2>{{less.title}}</h2>
+
+      <div class="lessons-grid">
+   {% for lesson in course %}
+<div class="lesson-card" data-lesson-id="{{ lesson.id }}">  <!-- <-- օգտագործում ենք lesson.id -->
+    <h3>{{ lesson.title }}</h3>
+    <p>{{ lesson.text }}</p>
+    <button class="btn-view" onclick="showLesson(this)">
+        {{ lesson.btn_text }}
+    </button>
+</div>
+{% endfor %}
+
+    </section>
+
+    <div id="lesson-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeLesson()">&times;</span>
+        <h2 id="modal-title"></h2>
+        <div id="modal-body"></div>
+        <a href="https://scratch.mit.edu/projects/editor/" target="_blank" class="btn-practice">Փորձել
+          Scratch-ում</a>
+      </div>
+    </div>
+  </main>
+{% endblock  %}
+
+ {% block scripts %}
+<script>
+const lessonsContent = JSON.parse(
+    document.getElementById("lesson-data").textContent
+);
+
+const modal = document.getElementById("lesson-modal");
+const modalTitle = document.getElementById("modal-title");
+const modalBody = document.getElementById("modal-body");
+
+function showLesson(btn) {
+    const lessonId = btn.closest(".lesson-card").dataset.lessonId;
+    const lesson = lessonsContent["1"];  //aystex petqa lini sa lessonId bayc qani vor im admin panelum sxal id sksvum dra hamar fix em dnum
+
+    console.log(lesson); // հիմա title և content ԿԱՆ
+
+    modalTitle.innerHTML = lesson.title;
+    modalBody.innerHTML = lesson.content;
+    modal.style.display = "block";
+}
+
+function closeLesson() {
+    modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>
+
+
+  {% endblock  %}
