@@ -18,53 +18,25 @@
     </div>
       
 
-        <form id="login-form">
-            <input type="email" id="email" placeholder="Էլ․հասցե" required>
-            <input type="password" id="password" placeholder="Գաղտնաբառ" required>
+        <form id="login-form" method="POST">
+    {% csrf_token %}
+    <input type="email" id="email" name="email" placeholder="Էլ․հասցե" required>
+    <input type="password" id="password" name="password" placeholder="Գաղտնաբառ" required>
 
-            <button type="submit">Մուտք</button>
+    <button type="submit">Մուտք</button>
 
-            <div class="forgot-password">
-                <a href="{% url "forgot-pswd" %}">Մոռացել եք գաղտնաբառը՞</a>
-            </div>
+    <div class="forgot-password">
+        <a href="{% url 'password_reset' %}">Մոռացել եք գաղտնաբառը՞</a>
+    </div>
 
-            <p id="contact-message"></p>
-        </form>
+    {% if messages %}
+        {% for message in messages %}
+            <p style="color:red;">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+</form>
     </div>
 </main>
 {% endblock  %}
 
-{% block scripts %}
-<script>
-    const form = document.getElementById("login-form");
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const message = document.getElementById("contact-message");
 
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        if (email.value === "" || password.value === "") {
-            message.style.color = "red";
-            message.textContent = "Խնդրում ենք լրացնել բոլոր դաշտերը";
-            return;
-        }
-
-        // fake login տվյալներ
-        const correctEmail = "";
-        const correctPassword = "";
-
-        if (email.value === correctEmail && password.value === correctPassword) {
-            message.style.color = "green";
-            message.textContent = "Մուտքը հաջողվեց ✅";
-
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
-        } else {
-            message.style.color = "red";
-            message.textContent = "Սխալ էլ․հասցե կամ գաղտնաբառ ❌";
-        }
-    });
-</script>
-{% endblock  %}

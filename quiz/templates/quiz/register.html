@@ -1,91 +1,67 @@
-{% extends "base.html" %} {% load static %} {% block extra_css %}
+{% extends "base.html" %}
+{% load static %} 
+ 
+ {% block extra_css %}
 <link rel="stylesheet" href="{% static 'quiz/css/register.css' %}" />
 {% endblock %}
-<body>
-  {% block content %}
-  <main>
-    <div class="register-container">
-      <div class="logo">
-        <img class="img" src="{% static 'quiz/images/image1.png' %}" alt="" />
-        <h2>Կապ Մեզ Հետ</h2>
-        <img
-          class="text"
-          src="{% static 'quiz/images/Scratchlogo.png' %}"
-          alt="s"
-        />
-      </div>
-      <form id="register-form">
-        <input
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Անուն"
-          required
-        />
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="էլ․հասցե"
-          required
-        />
-        <input
-          type="number"
-          id="number"
-          name="number"
-          placeholder="Տարիք"
-          required
-        />
-        <input
-          type="text"
-          id="school"
-          name="school"
-          placeholder="Դպրոց Դասարան"
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Գաղտնաբառ"
-          required
-        />
-        <textarea
-          id="message"
-          name="Նամակ"
-          required
-          placeholder="Գրեք մեզ ..."
-        ></textarea>
-        <button type="submit">Գրանցվել</button>
-        <p id="contact-message"></p>
-      </form>
-    </div>
-  </main>
-  {% endblock %} {% block scripts %}
-  <script>
-    const registerForm = document.getElementById("register-form");
-    const registerMessage = document.getElementById("register-message");
 
-    registerForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const username = document.getElementById("username").value.trim();
-      const password = document.getElementById("password").value.trim();
 
-      if (username === "admin" && password === "1234") {
-        registerMessage.textContent =
-          "Շնորհակալություն։ Ձեր նամակը հաջողությամբ ուղարկվեց։";
-        registerMessage.className = "register-message success";
-        registerMessage.style.display = "block";
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 1000);
-      } else {
-        registerMessage.textContent =
-          "Նամակը ուղարկելիս սխալ տեղի ունեցավ։ Խնդրում ենք ստուգել ֆորմայի դաշտերը։";
-        registerMessage.className = "register-message error";
-        registerMessage.style.display = "block";
-      }
-    });
-  </script>
-  {% endblock %}
-</body>
+
+
+{% block content %}
+<main>
+  <div class="register-container">
+    <h2>Գրանցում</h2>
+<form method="POST">
+  {% csrf_token %}
+
+  <div class="form-group">
+    <label for="id_username" style="display:block; text-align:left;">Օգտվողի անուն</label>
+    {{ form.username }}
+    {{ form.username.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="id_email" style="display:block; text-align:left;">Էլ․ հասցե</label>
+    {{ form.email }}
+    {{ form.email.errors }}
+  </div>
+
+  <div class="form-group" >
+    <label for="id_age" style="display:block; text-align:left;">Տարիք</label>
+    {{ form.age }}
+    {{ form.age.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="id_school" style="display:block; text-align:left;">Դպրոց / Դասարան</label>
+    {{ form.school }}
+    {{ form.school.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="id_password1" style="display:block; text-align:left;">Գաղտնաբառ</label>
+    {{ form.password1 }}
+    {{ form.password1.errors }}
+  </div>
+
+  <div class="form-group">
+    <label for="id_password2" style="display:block; text-align:left;">Կրկնել գաղտնաբառը</label>
+    {{ form.password2 }}
+    {{ form.password2.errors }}
+  </div>
+
+  <button type="submit">Գրանցվել</button>
+</form>
+
+
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  </div>
+</main>
+{% endblock %}
+
+

@@ -1,12 +1,31 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.core.serializers.json import DjangoJSONEncoder
+from django.contrib.auth.models import User
 import json
 from .models import (
      Home,ScratcLesson,ScratchCourse,LessonContent,
      Fact,AllScratchFacts,QuizLevel
      )
-
+from .form import RegisterForm
 # Create your views here.
+
+
+
+def register_view(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Գրանցումը հաջողությամբ կատարվեց։")
+            return redirect("login")  # կամ "home"
+    else:
+        form = RegisterForm()
+
+    return render(request, "quiz/register.html", {"form": form})
+
+
 
 def index(request):
     home = Home.objects.first()
@@ -76,14 +95,24 @@ def quizes(request):
     return render(request, "quiz/quizes.html", {'quizData': quizData, 'quiz': quiz})
 
 
-def login(request):
+def login_view(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, "Էլ․ հասցե կամ գաղտնաբառ սխալ է։")
+            return redirect("login")
+
+        user = authenticate(username=user.username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect("/")
+        else:
+            messages.error(request, "Էլ․ հասցե կամ գաղտնաբառ սխալ է։")
+            return redirect("login")
+
     return render(request, "quiz/login.html")
 
-
-def register(request):
-    return render(request, "quiz/register.html")
-
-
-
-def forgotPassword(request):
-    return render(request, "quiz/forgot-password.html")
