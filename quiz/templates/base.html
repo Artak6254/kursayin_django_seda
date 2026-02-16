@@ -43,11 +43,9 @@
           </li>
         </ul>
       {% else %}
-        <a href="#">Կապ մեզ հետ</a>
-        <ul class="drop_content">
+        <a href="{% url "contact" %}">Կապ մեզ հետ</a>
           <li><a href="{% url 'login' %}">Մուտք</a></li>
           <li><a href="{% url 'register' %}">Գրանցվել</a></li>
-        </ul>
       {% endif %}
                 </li>
             </ul>

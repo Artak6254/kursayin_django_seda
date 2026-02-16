@@ -34,8 +34,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 60px;
-  padding:80px 60px 0px;
+  height: 100vh;
   box-sizing: border-box;
 }
 .register-container {
@@ -121,22 +120,6 @@ main {
   color: #cc0000;
   border: 1px solid #cc0000;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @media screen and (max-width: 800px) {

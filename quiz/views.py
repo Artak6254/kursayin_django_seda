@@ -116,3 +116,11 @@ def login_view(request):
 
     return render(request, "quiz/login.html")
 
+def contact(request):
+    contact = {
+        "heading": "Կապ մեզ հետ",
+        "descr": "Ուղարկիր մեզ հաղորդագրություն, և մենք կպատասխանենք հնարավորինս շուտ։",
+        "contact_btn": "ՈւՂԱՐԿԵԼ ՆԱՄԱԿ"
+    }
+    
+    return render(request, 'quiz/contact.html', {'contact': contact})

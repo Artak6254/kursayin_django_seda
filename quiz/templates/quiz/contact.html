@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static "quiz/css/contact.css" %}" />
+{% endblock %}
+
+
+{% block content %}
+
+    <section class="contact-section">
+      <div class="wrapper">
+        <h1>{{contact.heading}}</h1>
+        <p>{{contact.descr}}</p>
+   <div class="auth-boxes">
+       <div class="auth-card">
+        <form >
+          <input type="text" name="name" placeholder="Անուն" required />
+          <input type="email" name="email" placeholder="Էլ․ հասցե" required />
+          <input type="text" name="subject" placeholder="Թեմա" required />
+          <textarea name="message" placeholder="Հաղորդագրություն" rows="4" required></textarea>
+          <button type="submit" class="btn primary">{{contact.contact_btn}}</button>
+        </form>
+      </div>
+    </div></div>
+    </section>
+
+{% endblock  %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.querySelector(".contact-form");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // կանխում է իրական submit-ը
+
+    
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const subject = form.subject.value.trim();
+    const message = form.message.value.trim();
+
+    const exampleEmail = "example@example.com";
+   
+    alert(
+      `Հաղորդագրություն ուղարկվել է:\n\nTo: ${exampleEmail}\nԱնուն: ${name}\nԷլ․ հասցե: ${email}\nԹեմա: ${subject}\nՀաղորդագրություն: ${message}`
+    );
+
+    form.reset();
+  });
+});
+</script>
+  <script src="{% static "quiz/js/header.js" %}"></script>
+{% endblock  %}
+
