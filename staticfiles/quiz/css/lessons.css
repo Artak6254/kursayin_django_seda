@@ -1,0 +1,351 @@
+@import "./index.css";
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+.about_container h2{
+  color: orange;
+}
+h2 span {
+  font-size: 40px;
+  letter-spacing: 2px;
+  display: inline-block;
+  opacity: 0;
+  font-family: "Mardoto", sans-serif;
+  animation: letterIn 0.8s ease-out forwards;
+}
+
+/* տարբեր ուղղություններ */
+h2 span:nth-child(3n) {
+  transform: translateY(-120px);
+}
+h2 span:nth-child(3n + 1) {
+  transform: translateX(-120px);
+}
+h2 span:nth-child(3n + 2) {
+  transform: translateX(120px);
+}
+
+@keyframes letterIn {
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.about_container {
+  padding:100px 20px 0;
+  max-width: 1200px; 
+  margin: 20px auto 40px;
+  text-align: center;
+}
+.content_block{
+ justify-content: space-between !important;
+}
+.about_container .one{
+
+  width: 800px ;
+  height: 150px;
+  animation: scaleInfinityOne 1s linear infinite alternate; 
+
+}
+
+
+.lessons-container {
+  padding: 0;
+  max-width: 1200px; 
+  margin: 20px auto 40px;
+  text-align: center;
+}
+.lessons-container h2 {
+  color: #4d76b3;
+  font-size: 2.2em;
+  padding:0 0 40px;
+}
+
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+
+.lessons-grid .lesson-card{
+  height: 200px;
+
+}
+
+.lessons-grid .lesson-card h3{
+font-size: 16px;
+padding-top: 10px;
+}
+
+.lessons-grid .lesson-card p{
+font-size: 13px;
+
+}
+
+@media (max-width: 1200px) {
+  .lessons-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 850px) {
+  .lessons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 550px) {
+  .lessons-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* ************************************ */
+
+/* ՔԱՐՏԵՐԻ ԼՅՈՒՔՍ ՈՃԸ */
+.lesson-card {
+  background-color: white;
+  padding: 4px 25px 10px; /* Ավելի շատ տարածք */
+  border: 1px solid #e0e0e0;
+  border-radius: 12px; /* Ավելի կլոր անկյուններ */
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* ԼՅՈՒՔՍ SHADOW */
+  box-shadow: 0 4px 8px #8eb4ed96;
+}
+.lesson-card:hover {
+  transform: translateY(-5px); /* Քարտը բարձրանում է hover-ի ժամանակ */
+  box-shadow: 0 10px 25px #4d76b3; /* Ավելի մուգ ստվեր */
+}
+.lesson-card h3 {
+  color: orange;
+  font-size: 18px;
+}
+.lesson-card p {
+  color: #4d76b3;
+  font-size: 14px;
+}
+
+/* ԳՈՒՆԱՎՈՐ ԿՈՃԱԿՆԵՐԻ ԼՅՈՒՔՍ ՈՃԸ */
+.btn-view {
+  background-color: rgb(74, 232, 74); /* Նարնջագույն կոճակ */
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px; /* Ավելի կլոր անկյուններ */
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.1s;
+  align-self: flex-start;
+  box-shadow: 0 4px 8px rgba(82, 255, 88, 0.4); /* Կոճակի ստվեր */
+}
+
+.btn-view:hover {
+  background-color: #e69d42; /* Մուգ նարնջագույն hover-ի ժամանակ */
+  transform: scale(1.02); /* Փոքր-ինչ մեծանում է */
+}
+
+/* Modal ոճերը մնում են նույնը */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 8% auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 700px;
+  border-radius: 10px;
+  position: relative;
+}
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: #333;
+}
+#modal-title {
+  color: #4d76b3;
+}
+.btn-practice {
+  display: inline-block;
+  background-color: #4d76b3; /* Կապույտ կոճակ */
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 8px rgba(77, 118, 179, 0.4);
+}
+.btn-practice:hover {
+  background-color: #3b5a8e;
+}
+
+
+
+.lesson-card {
+  animation: cardFloat 2s ease-in-out infinite;
+}
+
+/* անընդհատ մեղմ շարժում */
+@keyframes cardFloat {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.03) rotate(2deg);
+  }
+    50% {
+    transform: scale(1.03) rotate(0deg);
+  }
+
+    75% {
+    transform: scale(1.03) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav ul {
+    gap: 5px;
+  }
+  .modal-content {
+margin-top: 100px;
+}
+
+}
+
+
+
+@media screen and (max-width: 620px) {
+    .modal-content {
+margin-top: 140px;
+}
+.about_container {
+  padding:140px 20px 0;
+}
+  header {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav ul {
+    gap: 3px;
+  }
+nav ul li a {
+  font-size: 12px;
+}
+
+}
+
+@media screen and (max-width: 500px) {
+  header {
+    flex-direction: column;
+  }
+
+  nav ul {
+    flex-direction: column;
+
+  }
+nav {
+  width: 100%;
+}
+  .drop_content {
+    width: 100%;
+  }
+nav ul li a {
+  font-size: 16px;
+    padding: 4px;
+  display: block;
+  width: 100%;
+  border-top: .5px solid  #345c98a6;
+
+}
+.drop_content li a {
+  padding: 4px;
+}
+
+  nav ul li {
+    text-align: center;
+  }
+
+    .lessons-container h2 {
+  font-size: 1.8em;
+   padding: 10px;
+}
+  .lessons-container {
+  padding:220px 20px 100px;
+}
+.modal-content {
+margin-top: 290px;
+}
+
+#modal-title {
+ font-size: 16px;
+}
+
+.modal-content p{
+ font-size: 13px;
+
+}
+.btn-practice {
+ font-size: 16px;}
+}
+
+@media screen and (max-width: 400px) {
+  .logo {
+    font-size: 1.3em;
+  }
+
+  nav ul li a {
+    font-size: 14px;
+  }
+
+
+}
+
+@media screen and (max-width: 300px) {
+  .logo {
+    font-size: 1.1em;
+  }
+}

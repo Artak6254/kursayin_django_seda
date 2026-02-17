@@ -1,0 +1,275 @@
+@import "./index.css";
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+}
+
+
+/* Փաստեր Բաժնի Հատուկ Ոճեր */
+.facts-container {
+  padding: 100px 20px;
+  max-width: 1300px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.fact-title {
+  color: #009900;
+  font-size: 2.5em;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+.fact-title span {
+  font-size: 40px;
+  letter-spacing: 2px;
+  display: inline-block;
+  opacity: 0;
+  font-family: "Mardoto", sans-serif;
+  animation: letterIn 0.4s ease-out forwards;
+}
+
+/* տարբեր ուղղություններ */
+.fact-title span:nth-child(3n) {
+  transform: translateY(-80px);
+}
+.fact-title span:nth-child(3n + 1) {
+  transform: translateX(-80px);
+}
+.fact-title span:nth-child(3n + 2) {
+  transform: translateX(80px);
+}
+
+@keyframes letterIn {
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+/* CSS GRID-Ի ԿԻՐԱՌՈՒՄԸ 3 ՇԱՐՔԻ ՀԱՄԱՐ */
+.fun-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Պատասխանատու դիզայն (Responsive Design) */
+@media (max-width: 1200px) {
+  .fun-facts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .fun-facts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ՖԱՔԹԵՐԻ ՔԱՐՏԵՐԻ ՈՃԸ (Լյուքս) */
+.fact-card {
+  background-color: #e3f2fd;
+  padding: 25px;
+  border-left: 6px solid #4d76b3;
+  border-radius: 10px;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+  box-shadow: 0 4px 15px #79abf67b;
+  min-height: 180px;
+}
+.fact-card:hover {
+  background-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px #4d76b3;
+}
+.fact-card h4 {
+  color: #4d76b3;
+  margin-top: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.fact-card p {
+  font-size: 0.95em;
+  margin: 0;
+}
+
+/* !!! ԷՄՈՋԻՆԵՐԻ ՉԱՓՍԻ ՄԵԾԱՑՈՒՄԸ !!! */
+/* Էմոջիները ցույց են տրվում որպես տեքստ. font-size-ի մեծացումը կմեծացնի նաև դրանց չափսը։ */
+.fact-card h4 {
+  /* Ընդհանուր չափսը 1.2em-ից դառնում է 1.2em * 3 = 3.6em */
+  font-size: 1.2em; /* Պահում ենք բուն տառաչափը վերնագրի համար */
+}
+.fact-card h4 > * {
+  /* Բոլոր այն տարրերը (էմոջիները), որոնք ուղղակի գտնվում են h4-ի մեջ (տեքստի մի մասն են), կունենան 3 անգամ մեծ font-size */
+  font-size: 3em;
+  line-height: 1; /* Կարգավորում ենք գծի բարձրությունը, որպեսզի չշեղվի դասավորությունը */
+}
+.fact-card h4:before {
+  /* Էմոջիները հիմնականում տեքստի մի մասն են: Ամենապարզ լուծումը h4-ի ներսում գտնվող տառաչափը մեծացնելն է: */
+  /* Քանի որ էմոջիները տեղադրված են հենց վերնագրի տեքստի սկզբում, կարող ենք օգտագործել Span կամ պարզապես մեծ font-size.
+            Այս դեպքում, քանի որ էմոջիներն ուղղակի տեքստ են, մեծացնում ենք h4-ի ամբողջ font-size-ը և margin-ը կարգավորում. */
+  font-size: 3em;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+
+#about {
+  padding:0
+}
+
+
+
+#about .about_container .one {
+  width: 800px;
+  height: 150px;
+  margin:40px auto;
+    animation: scaleInfinityOne 1s linear infinite alternate; 
+
+}
+
+
+@keyframes scaleInfinityOne {
+  from {
+    transform: scale(1) ; 
+  }
+  to {
+    transform: scale(1.1); 
+  }
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 800px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav ul {
+    gap: 5px;
+  }
+
+  .facts-container {
+  padding-top: 100px;
+  }
+    .fact-title span{
+  font-size: 30px;
+
+}
+
+}
+
+@media screen and (max-width: 740px) {
+  header {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav ul {
+    gap: 3px;
+  }
+nav ul li a {
+  font-size: 12px;
+}
+.fact-title {
+  font-size: 1.8rem;
+
+}
+}
+@media screen and (max-width: 550px) {
+      .fact-title span{
+  font-size: 20px;
+
+      }
+      #about .about_container .one {
+  width: 480px !important;
+
+}
+}
+
+
+
+@media screen and (max-width: 500px) {
+  header {
+    flex-direction: column;
+  }
+
+  nav ul {
+    flex-direction: column;
+
+  }
+nav {
+  width: 100%;
+}
+  .drop_content {
+    width: 100%;
+  }
+nav ul li a {
+  font-size: 16px;
+    padding: 4px;
+  display: block;
+  width: 100%;
+  border-top: .5px solid  #345c98a6;
+
+}
+.drop_content li a {
+  padding: 4px;
+}
+
+  nav ul li {
+    text-align: center;
+  }
+
+    .facts-container {
+  padding-top: 220px;
+    
+  }
+
+}
+
+@media screen and (max-width: 400px) {
+  .logo {
+    font-size: 1.3em;
+  }
+
+  nav ul li a {
+    font-size: 14px;
+  }
+      .facts-container {
+  padding-top: 200px;
+  }
+  .fact-title {
+  font-size: 1.2rem;
+
+}
+.fact-card h4 {
+  font-size: 1em;
+}
+.fact-card p {
+  font-size: 0.8em;
+}
+.fact-card {
+  padding: 20px;
+ min-height: max-content;
+}
+}
+
+@media screen and (max-width: 300px) {
+  .logo {
+    font-size: 1.1em;
+  }
+}
