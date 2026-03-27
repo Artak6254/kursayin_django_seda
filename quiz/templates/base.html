@@ -1,67 +1,80 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="hy">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome and Google Fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" 
-          integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" 
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Your CSS -->
-    <link rel="stylesheet" href="{% static 'quiz/css/index.css' %}">
-     {% block extra_css %}{% endblock %}
-    <title>Մտքի Բլոկ | Scratch Ծրագրավորման Դասեր</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Font Awesome and Google Fonts -->
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;600;700&display=swap"
+            rel="stylesheet">
+        <!-- Your CSS -->
+        <link rel="stylesheet" href="{% static 'quiz/css/index.css' %}">
+        <link rel="stylesheet" href="{% static 'quiz/css/header.css' %}">
+        {% block extra_css %}{% endblock %}
+        <title>Մտքի Բլոկ | Scratch Ծրագրավորման Դասեր</title>
+    </head>
 
-<body>
+    <body>
 
-    <header>
-        <div class="logo">
-            <a href="#">
-                <img src="{% static 'quiz/images/image2.png' %}" alt="/">
-            </a>
+        <header>
+            <div class="logo">
+                <a href="#">
+                    <img src="{% static 'quiz/images/image2.png' %}" alt="/">
+                </a>
+            </div>
+        <div class="burger" id="burger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
+            <nav id="nav">
+                <ul class="menu">
+                    <li><a href="{% url 'index' %}">Գլխավոր</a></li>
+                    <li><a href="{% url 'lesson' %}">Դասեր</a></li>
+                    <li><a href="{% url 'fact' %}">Հետաքրքիր փաստեր</a></li>
+                    <li><a href="{% url 'quizes' %}">Հարցաշար</a></li>
+                    <li><a href="{% url 'contact' %}">Կապ մեզ հետ</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <nav>
-            <ul class="menu">
-                <li><a href="{% url "index" %}">Գլխավոր</a></li>
-                <li><a href="{% url "lesson" %}">Դասեր</a></li>
-                <li><a href="{% url "fact" %}">Հետաքրքիր փաստեր</a></li>
-                <li><a href="{% url "quizes" %}">Quizes</a></li>
+        {% block content %}
 
-                <li class="dropdown">
-                   {% if request.user.is_authenticated %}
-        <a href="#">{{ request.user.username }}</a>
-        <ul class="drop_content">
-          <li>
-            <form method="POST" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit" style="all:unset; cursor:pointer;">Դուրս Գալ</button>
-            </form>
-          </li>
-        </ul>
-      {% else %}
-        <a href="{% url "contact" %}">Կապ մեզ հետ</a>
-          <li><a href="{% url 'login' %}">Մուտք</a></li>
-          <li><a href="{% url 'register' %}">Գրանցվել</a></li>
-      {% endif %}
-                </li>
-            </ul>
-        </nav>
-    </header>
+        {% endblock %}
+        <footer>
+            <p>© 2025 Մտքի Բլոկ. Բոլոր իրավունքները պաշտպանված են:</p>
+        </footer>
+
+        {% block scripts %}{% endblock %}
+          <script>
+            console.log(1);
+        //burger
+        const burger = document.getElementById("burger");
+        const nav = document.getElementById("nav");
+
+        burger.addEventListener("click", () => {
+            nav.classList.toggle("active");
+        });
+
+        // scroll-ի ժամանակ փակվի
+        window.addEventListener("scroll", () => {
+            nav.classList.remove("active");
+        });
+
+        // link սեղմելիս փակվի
+        document.querySelectorAll("nav ul li a").forEach(link => {
+            link.addEventListener("click", () => {
+                nav.classList.remove("active");
+            });
+        });
+    </script>
 
 
-{% block content %}
+    </body>
 
-{% endblock  %}
-    <footer>
-        <p>© 2025 Մտքի Բլոկ. Բոլոր իրավունքները պաշտպանված են:</p>
-    </footer>
-
- {% block scripts %}{% endblock  %}
-   
-</body>
-
-</html>    
+</html>

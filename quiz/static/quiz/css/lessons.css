@@ -5,7 +5,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
   margin: 0;
   padding: 0;
   background-color: #f4f4f9;
@@ -280,7 +280,7 @@ nav ul li a {
 
 @media screen and (max-width: 500px) {
   header {
-    flex-direction: column;
+    justify-content: space-between;
   }
 
   nav ul {

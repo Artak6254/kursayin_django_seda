@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
 }
 
  .quize .about_container  .one {
@@ -202,7 +202,7 @@ margin-bottom: 0;
 
 @media screen and (max-width: 500px) {
   header {
-    flex-direction: column;
+    justify-content: space-between;
   }
 
   nav ul {

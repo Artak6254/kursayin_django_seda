@@ -27,7 +27,7 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -60,7 +60,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'poghos877@gmail.com'
-EMAIL_HOST_PASSWORD = 'qisj bgvg yqfb xjvw'
+EMAIL_HOST_PASSWORD = 'muvl lgof tdag qrec'
 
 
 TEMPLATES = [

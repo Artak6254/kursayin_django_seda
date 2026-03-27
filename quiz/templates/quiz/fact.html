@@ -2,36 +2,36 @@
 {% load static %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'quiz/css/fact.css' %}">
+<link rel="stylesheet" href="{% static 'quiz/css/fact.css' %}">
 {% endblock %}
-
 
 {% block content %}
 {{ allScratchFacts|json_script:"all-facts-data" }}
-    <main>
-        <section id="facts" class="facts-container">
-            <h2 class="fact-title">{{fact.title}}</h2>
+<main>
+    <section id="facts" class="facts-container">
+        <h2 class="fact-title">{{fact.title}}</h2>
 
-            <div id="facts-container-grid" class="fun-facts-grid">
-            </div>
+        <div id="facts-container-grid" class="fun-facts-grid">
+        </div>
 
-        </section>
-        <section id="about">
-            <div class="about_container">
-                <div class="content_block">
-                    <img src="{% static 'quiz/images/image.png' %}" alt="s">
-                    <div class="content">
-                       <h2>{{fact.heading}}</h2>
-                        <p>{{fact.description}}</p>
-                    </div>
+    </section>
+    <section id="about">
+        <div class="about_container">
+            <div class="content_block">
+                <img src="{% static 'quiz/images/image.png' %}" alt="s">
+                <div class="content">
+                    <h2>{{fact.heading}}</h2>
+                    <p>{{fact.description}}</p>
                 </div>
-                <img class="one" src="{% static "quiz/images/Scratchlogo.png" %}" alt="s">
             </div>
-        </section>
-    </main>
-{% endblock  %}
+            <img class="one" src="{% static 'quiz/images/Scratchlogo.png' %}"
+                alt="s">
+        </div>
+    </section>
+</main>
+{% endblock %}
 {% block scripts %}
-    <script>
+<script>
       const allScratchFacts = JSON.parse(document.getElementById("all-facts-data").textContent);
 
 
@@ -84,5 +84,4 @@
         }
         window.onload = displayRandomFacts;
     </script>
-{% endblock  %}
-       
+{% endblock %}

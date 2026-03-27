@@ -1,9 +1,7 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render
+from django.core.mail import send_mail
 from django.core.serializers.json import DjangoJSONEncoder
-from django.contrib.auth.models import User
-import json
+
 from .models import (
      Home,ScratcLesson,ScratchCourse,LessonContent,
      Fact,AllScratchFacts,QuizLevel
@@ -11,19 +9,6 @@ from .models import (
 from .form import RegisterForm
 # Create your views here.
 
-
-
-def register_view(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Գրանցումը հաջողությամբ կատարվեց։")
-            return redirect("login")  # կամ "home"
-    else:
-        form = RegisterForm()
-
-    return render(request, "quiz/register.html", {"form": form})
 
 
 
@@ -95,26 +80,8 @@ def quizes(request):
     return render(request, "quiz/quizes.html", {'quizData': quizData, 'quiz': quiz})
 
 
-def login_view(request):
-    if request.method == "POST":
-        email = request.POST.get("email")
-        password = request.POST.get("password")
 
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            messages.error(request, "Էլ․ հասցե կամ գաղտնաբառ սխալ է։")
-            return redirect("login")
 
-        user = authenticate(username=user.username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect("/")
-        else:
-            messages.error(request, "Էլ․ հասցե կամ գաղտնաբառ սխալ է։")
-            return redirect("login")
-
-    return render(request, "quiz/login.html")
 
 def contact(request):
     contact = {
@@ -122,5 +89,29 @@ def contact(request):
         "descr": "Ուղարկիր մեզ հաղորդագրություն, և մենք կպատասխանենք հնարավորինս շուտ։",
         "contact_btn": "ՈւՂԱՐԿԵԼ ՆԱՄԱԿ"
     }
-    
-    return render(request, 'quiz/contact.html', {'contact': contact})
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        full_message = f"""
+Անուն: {name}
+Email: {email}
+
+Հաղորդագրություն:
+{message}
+"""
+
+        send_mail(
+            subject="Նոր հաղորդագրություն",
+            message=full_message,
+            from_email="poghos877@gmail.com",
+            recipient_list=[email],
+        )
+
+        return  render(request, "quiz/sendcontact.html")
+
+    return render(request, "quiz/contact.html", {'contact': contact})
+
+
+
